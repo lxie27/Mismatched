@@ -23,10 +23,10 @@ public class EnemyController : MonoBehaviour
 
         if (pPos - xPos > 0)
         {
-            this.transform.localPosition = new Vector2(this.transform.localPosition.x + .1f, this.transform.localPosition.y);
+            this.transform.localPosition = new Vector2(this.transform.localPosition.x + .05f, this.transform.localPosition.y);
         }
         else
-            this.transform.localPosition = new Vector2(this.transform.localPosition.x - .1f, this.transform.localPosition.y);
+            this.transform.localPosition = new Vector2(this.transform.localPosition.x - .05f, this.transform.localPosition.y);
 
         if (rotate)
         {

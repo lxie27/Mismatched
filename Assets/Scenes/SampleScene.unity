@@ -298,12 +298,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingRight: 1
-  jump: 0
   whip: 0
   lash: {fileID: 0}
   moveForce: 365
   maxSpeed: 5
-  jumpForce: 1000
   groundCheck: {fileID: 40014080}
   pullback: 0
   pullVector: {x: 0, y: 0}
@@ -322,11 +320,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingRight: 1
-  jump: 0
   moveForce: 365
   maxSpeed: 5
-  jumpClips: []
-  jumpForce: 1000
   taunts: []
   tauntProbability: 50
   tauntDelay: 1
@@ -382,7 +377,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -615,7 +610,7 @@ Transform:
   m_GameObject: {fileID: 774412281}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.3988557, y: -6.1265054, z: -0.08197807}
-  m_LocalScale: {x: 39.8275, y: 0.89, z: 0.89}
+  m_LocalScale: {x: 100, y: 0.89, z: 0.89}
   m_Children: []
   m_Father: {fileID: 1738774477}
   m_RootOrder: 0
@@ -639,7 +634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &987354643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,7 +915,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1738774477}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}

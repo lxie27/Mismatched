@@ -5,13 +5,11 @@ public class SimplePlatformController : MonoBehaviour
 {
 
     [HideInInspector] public bool facingRight = true;
-    [HideInInspector] public bool jump = false;
     [HideInInspector] public bool whip = false;
 
     public GameObject lash;
     public float moveForce = 365f;
     public float maxSpeed = 5f;
-    public float jumpForce = 1000f;
     public Transform groundCheck;
 
     public bool pullback = false;
@@ -23,6 +21,7 @@ public class SimplePlatformController : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb2d;
 
+    private float validPullRadius = 5.0f + transform.localPosition.x;
 
     // Use this for initialization
     void Awake()
@@ -35,12 +34,17 @@ public class SimplePlatformController : MonoBehaviour
     void Update()
     {
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
-
-        if (Input.GetButtonDown("Jump") && grounded)
+        
+        if (Input.GetMouseButtonDown(0) && grounded)
         {
-            jump = true;
+            OnMouseDown();
         }
 
+        if (Input.GetMouseButtonUp(0))
+        {
+            OnMouseUp();
+        }
+        
     }
 
     void FixedUpdate()
@@ -60,29 +64,18 @@ public class SimplePlatformController : MonoBehaviour
         else if (h < 0 && facingRight)
             Flip();
 
-        if (jump)
-        {
-            //anim.SetTrigger("Jump");
-            rb2d.AddForce(new Vector2(0f, jumpForce));
-            jump = false;
-        }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            OnMouseDown();
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            OnMouseUp();
-        }
-
-        if (pullback)
+        if (pullback && grounded)
         {
             rb2d.AddForce(-pullVector * 2.0f);
+            pullback = false;
+        }
+        else
+        {
+            pullVector = new Vector2(0.0f, 0.0f);
         }
     }
-    
+
     void Flip()
     {
         facingRight = !facingRight;
@@ -99,11 +92,11 @@ public class SimplePlatformController : MonoBehaviour
 
     void OnMouseUp()
     {
-        Debug.Log("mouse up"); 
+        Debug.Log("mouse up");
         mouseEndPosition = Input.mousePosition;
         Debug.Log("mouse down at " + mouseEndPosition.x + ", " + mouseEndPosition.y);
-        pullVector.x = (mouseEndPosition.x - mouseInitPosition.x) * 3.5f;
-        pullVector.y = (mouseEndPosition.y - mouseInitPosition.y) / 2.0f;
+        pullVector.x = (mouseEndPosition.x - mouseInitPosition.x) * 2.0f;
+        pullVector.y = (mouseEndPosition.y - mouseInitPosition.y) * 2.0f;
         pullback = true;
     }
 }

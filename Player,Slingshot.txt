@@ -188,3 +188,5 @@ Destroy (clone,3f);
 
 
 // Website : https://insights.nimblechapps.com/unity/how-to-implement-slingshot-in-unity
+
+// @Credit by Ketan Jogadiya 

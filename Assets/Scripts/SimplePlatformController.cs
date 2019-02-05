@@ -41,19 +41,6 @@ public class SimplePlatformController : MonoBehaviour
             jump = true;
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            OnMouseUp();
-            rb2d.AddForce(-pullVector * maxSpeed);
-            Debug.Log("Moving player in direction of x: " + -pullVector.x + ", y:" + -pullVector.y);
-            pullVector = new Vector2(0.0f, 0.0f);
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnMouseDown();
-        }
-
     }
 
     void FixedUpdate()
@@ -80,6 +67,20 @@ public class SimplePlatformController : MonoBehaviour
             jump = false;
         }
 
+        if(Input.GetMouseButtonDown(0))
+        {
+            OnMouseDown();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            OnMouseUp();
+        }
+
+        if (pullback)
+        {
+            rb2d.AddForce(-pullVector * 2.0f);
+        }
     }
     
     void Flip()
@@ -94,7 +95,6 @@ public class SimplePlatformController : MonoBehaviour
     {
         mouseInitPosition = Input.mousePosition;
         Debug.Log("mouse down at " + mouseInitPosition.x + ", " + mouseInitPosition.y);
-        pullback = true;
     }
 
     void OnMouseUp()
@@ -102,8 +102,8 @@ public class SimplePlatformController : MonoBehaviour
         Debug.Log("mouse up"); 
         mouseEndPosition = Input.mousePosition;
         Debug.Log("mouse down at " + mouseEndPosition.x + ", " + mouseEndPosition.y);
-        pullback = false;
-        pullVector.x = (mouseEndPosition.x - mouseInitPosition.x) * 2;
-        pullVector.y = (mouseEndPosition.y - mouseInitPosition.y) / 2;
+        pullVector.x = (mouseEndPosition.x - mouseInitPosition.x) * 3.5f;
+        pullVector.y = (mouseEndPosition.y - mouseInitPosition.y) / 2.0f;
+        pullback = true;
     }
 }

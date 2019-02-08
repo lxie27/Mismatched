@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SimplePlatformController : MonoBehaviour
 {
+    public GameObject player;
 
     [HideInInspector] public bool facingRight = true;
     [HideInInspector] public bool whip = false;
@@ -20,14 +21,16 @@ public class SimplePlatformController : MonoBehaviour
     private bool grounded = false;
     private Animator anim;
     private Rigidbody2D rb2d;
-
-    private float validPullRadius = 5.0f + transform.localPosition.x;
+    private float validX;
+    private float validY;
 
     // Use this for initialization
     void Awake()
     {
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+        validX = player.transform.localPosition.x;
+        validY = player.transform.localPosition.y;
     }
 
     // Update is called once per frame
@@ -35,7 +38,10 @@ public class SimplePlatformController : MonoBehaviour
     {
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
         
-        if (Input.GetMouseButtonDown(0) && grounded)
+        if (Input.GetMouseButtonDown(0) && 
+            grounded &&
+            ((validX - 5.0f) <= Input.mousePosition.x && Input.mousePosition.x <= (validX + 5.0f)) &&
+            ((validY - 5.0f) <= Input.mousePosition.y && Input.mousePosition.y <= (validY + 5.0f)))
         {
             OnMouseDown();
         }
